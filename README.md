@@ -51,6 +51,12 @@ Please see [CONTRIBUTING](https://github.com/indigophp/http-adapter/blob/develop
 - [All Contributors](https://github.com/indigophp/http-adapter/contributors)
 
 
+## Inspired by
+
+- Guzzle
+- fXmlRpc
+
+
 ## License
 
 The MIT License (MIT). Please see [License File](https://github.com/indigophp/http-adapter/blob/develop/LICENSE) for more information.
