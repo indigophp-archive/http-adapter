@@ -12,7 +12,7 @@
 
 ## Why an other HTTP library again?
 
-The proposed HTTP Message [PSR](https://github.com/php-fig/fig-standards/blob/master/proposed/http-message.md) is going to be great....but that won't let anyone create HTTP Client agnostic packages. For example you cannot typehint for a `ClientInterface`. You can only operate on the same messages. The PSR Meta also mentions adapter packages as a valid approach. There are many cool adapter packages out there, but all of them implement a simple logic based on the author's need. You can consider this package as a simple `ClientInterface` providing you full control over the common fetures of the implemented HTTP Client libraries. However, it must be noted that all of these packages have something more which is out of scope of this package. For example: if you need to use Guzzle specific feature, depend on it instead.
+The proposed HTTP Message [PSR](https://github.com/php-fig/fig-standards/blob/master/proposed/http-message.md) is going to be great....but that won't let anyone create HTTP Client agnostic packages. For example you cannot typehint for a `ClientInterface`. You can only operate on the same messages. The PSR Meta also mentions adapter packages as a valid approach. There are many cool adapter packages out there, but all of them implement a simple logic based on the author's need. You can consider this package as a simple `Adapter` providing you full control over the common fetures of the implemented HTTP Client libraries. However, it must be noted that the specific features are out of scope. For example: if you need to use Guzzle specific feature, depend on it instead.
 
 This package also provides a simple implementation of the latest PSR interfaces.
 
@@ -31,6 +31,8 @@ Via Composer
 
 
 ## Usage
+
+
 
 
 ## Testing
