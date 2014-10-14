@@ -15,7 +15,7 @@
         "psr/http-message": "~0.3.0"
     },
     "require-dev": {
-        "kriswallsmith/buzz": "~0.13",
+        "kriswallsmith/buzz": "v0.13",
         "guzzle/guzzle": "~3.9.0",
         "guzzlehttp/guzzle": "~4.2.0"
     },

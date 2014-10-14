@@ -181,7 +181,7 @@ class Stream implements StreamableInterface
      */
     public function read($length)
     {
-        return $this->readable ? fread($this->stream, $length) : '';
+        return $this->readable ? fread($this->stream, $length) : false;
     }
 
     /**

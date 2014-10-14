@@ -150,6 +150,7 @@ class StreamTest extends Test
 
         $this->assertEquals('Another content', $this->stream->read(15));
         $this->assertTrue($this->stream->eof());
+        $this->assertEquals('', $this->stream->read(1));
     }
 
     /**
