@@ -1,0 +1,83 @@
+<?php
+
+/*
+ * This file is part of the Indigo HTTP Adapter package.
+ *
+ * (c) Indigo Development Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Indigo\Http\Event;
+
+use Indigo\Http\Adapter;
+use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
+
+/**
+ * Complete HTTP request event
+ *
+ * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
+ */
+class Complete extends Event
+{
+    const NAME = 'complete';
+
+    /**
+     * @var Adapter
+     */
+    private $adapter;
+
+    /**
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * @var Response
+     */
+    private $response;
+
+    /**
+     * @param Adapter  $adapter
+     * @param Request  $request
+     * @param Response $response
+     */
+    public function __construct(Adapter $adapter, Request $request, Response $response)
+    {
+        $this->adapter = $adapter;
+        $this->request = $request;
+        $this->response = $response;
+    }
+
+    /**
+     * Returns the Adapter
+     *
+     * @return Adapter
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
+     * Returns the Request
+     *
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Returns the Response
+     *
+     * @return Response
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+}
