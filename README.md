@@ -32,7 +32,151 @@ Via Composer
 
 ## Usage
 
+### Simple usage
 
+You are free to directly use any adapters in your application.
+
+``` php
+use Indigo\Http\Adapter;
+
+class MyAdapterAware
+{
+    /**
+     * @var Adapter
+     */
+    private $adapter;
+
+    public function __construct(Adapter $adapter)
+    {
+        $this->adapter = $adapter;
+    }
+
+    public function get()
+    {
+        $request = new Request;
+        $request->setUrl('http://foo.com');
+
+        return $this->adapter->send($request);
+    }
+}
+```
+
+You can also use the client class for the most common client usage. (Guzzle is only used as an example)
+
+``` php
+use GuzzleHttp\Client as GuzzleClient;
+use Indigo\Http\Adapter\Guzzle4;
+use Indigo\Http\Client;
+
+$adapter = new Guzzle4(new GuzzleClient);
+$client = new Client($adapter);
+
+$client->get('http://foo.com');
+```
+
+
+### Advanced usage
+
+For testing you can use the `Mock` adapter.
+
+``` php
+use Indigo\Http\Adapter\Mock;
+use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
+
+// ... your testing logic
+
+// you can directly pass the Response object to the constructor
+$adapter = new Mock(function(Request $request) {
+    return new Response;
+});
+
+// Optionally
+$adapter->setResponse(new Response);
+
+// ... your testing logic
+```
+
+You can decorate your adapters with various decorators.
+
+#### Event decorator
+
+Event decorator emitts two events:
+
+- Before (request)
+- Complete (response)
+
+Both events receive the `Adapter` and the `Request`. The `Complete` event contains the `Response` as well.
+
+``` php
+use Indigo\Http\Adapter\Event;
+use Indigo\Http\Event;
+
+$adapter = new Event($decoratedAdapter);
+
+// Optionally
+// $adapter->setEmitter($emitter);
+
+$adapter->addListener('before', function(Event\Before $event) {
+    $adapter = $event->getAdapter();
+    $request = $event->getRequest();
+
+    // ... do something with the adapter and the request
+});
+
+$adapter->addListener('complete', function(Event\Complete $event) {
+    $adapter = $event->getAdapter();
+    $request = $event->getRequest();
+    $response = $event->getResponse();
+
+    // ... do something with the adapter, request and the response
+});
+```
+
+You can also use `Subscriber`s with the `Event` adapter.
+
+``` php
+use Indigo\Http\Adapter\Event;
+use Indigo\Http\Subscriber\Auth;
+
+$adapter = new Event($decoratedAdapter);
+
+// This will always attach authentication data to your requests
+$adapter->addSubscriber(new Auth('username', 'password', Auth::BASIC));
+```
+
+Currently [league/event](http://event.thephpleague.com) is used as event backend.
+
+
+#### Cache decorator
+
+You can use a local cache for returned `Response`s. Based on cached items you can send `Request`s to the server with `If-Modified-Since` and `If-None-Match` (`ETag` header required in response) headers. If the server return with 304 status then the cached item is returned, otherwise it gets cached for future.
+
+``` php
+use Indigo\Http\Adapter\Cache;
+
+$adapter = new Cache($decoratedAdapter);
+
+// Optionally
+// $adapter->setPool($pool);
+
+// Status: 200 OK
+$response = $adapter->send($request);
+
+// Status: 304 Not Modified
+// Returned from cache
+$response = $adapter->send($request);
+```
+
+Currently [Stash](http://stashphp.com) is used as cache backend.
+
+
+### Exceptions
+
+There are two main type of exceptions:
+
+- `AdapterException`: Thrown when some sort of adapter problem occurs.
+- `RequestException`: Thrown if the response itself is an error response (4xx, 5xx) or the request cannot be completed (no response returned).
 
 
 ## Testing
