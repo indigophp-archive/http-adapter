@@ -55,35 +55,56 @@ class Xml implements Parser
      */
     public function parse($response)
     {
-        $disableEntities = libxml_disable_entity_loader(true);
-        $internalErrors = libxml_use_internal_errors(true);
+        $disableEntities =  $internalErrors = true;
+
+        $this->libxmlSettings($disableEntities, $internalErrors);
 
         try {
-            $response = (string) $response;
-
-            if (empty($response)) {
-                $response = '<root />';
-            }
+            $response = $this->normalizeResponse($response);
 
             $data = new SimpleXMLElement($response, $this->options, false, $this->ns, $this->isPrefix);
 
-            libxml_disable_entity_loader($disableEntities);
-            libxml_use_internal_errors($internalErrors);
+            $this->libxmlSettings($disableEntities, $internalErrors);
         } catch (Exception $e) {
-            libxml_disable_entity_loader($disableEntities);
-            libxml_use_internal_errors($internalErrors);
-
-            if (!$error = libxml_get_last_error()) {
-                $error = null;
-            }
+            $this->libxmlSettings($disableEntities, $internalErrors);
 
             throw new XmlParserException(
                 'Unable to parse response body into XML: ' . $e->getMessage(),
                 $e,
-                $error
+                (libxml_get_last_error()) ?: null
             );
         }
 
         return $data;
+    }
+
+    /**
+     * Normalize response value
+     *
+     * @param mixed $response
+     *
+     * @return string
+     */
+    private function normalizeResponse($response)
+    {
+        $response = (string) $response;
+
+        if (empty($response)) {
+            $response = '<root />';
+        }
+
+        return $response;
+    }
+
+    /**
+     * Sets some libxml settings
+     *
+     * @param boolean $disableEntities
+     * @param boolean $internalErrors
+     */
+    private function libxmlSettings(&$disableEntities, &$internalErrors)
+    {
+        $disableEntities = libxml_disable_entity_loader($disableEntities);
+        $internalErrors = libxml_use_internal_errors($internalErrors);
     }
 }
