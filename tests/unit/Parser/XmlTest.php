@@ -34,7 +34,6 @@ class XmlTest extends Test
      * @covers ::__construct
      * @covers ::parse
      * @covers ::normalizeResponse
-     * @covers ::libxmlSettings
      */
     public function testParse()
     {
@@ -46,9 +45,23 @@ class XmlTest extends Test
     }
 
     /**
+     * @covers ::__construct
+     * @covers ::parse
+     * @covers ::normalizeResponse
+     */
+    public function testParseEmptyResponse()
+    {
+        $parser = new Xml;
+
+        $actual = $parser->parse('');
+
+        $this->assertEmpty($actual);
+    }
+
+    /**
      * @covers            ::__construct
      * @covers            ::parse
-     * @covers            ::libxmlSettings
+     * @covers            ::getLastError
      * @expectedException Indigo\Http\Exception\ParserException
      */
     public function testParseFailed()

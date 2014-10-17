@@ -55,23 +55,28 @@ class Xml implements Parser
      */
     public function parse($response)
     {
-        $disableEntities =  $internalErrors = true;
-
-        $this->libxmlSettings($disableEntities, $internalErrors);
+        $disableEntities = libxml_disable_entity_loader(true);
+        $internalErrors = libxml_use_internal_errors(true);
 
         try {
-            $response = $this->normalizeResponse($response);
+            $data = new SimpleXMLElement(
+                $this->normalizeResponse($response),
+                $this->options,
+                false,
+                $this->ns,
+                $this->isPrefix
+            );
 
-            $data = new SimpleXMLElement($response, $this->options, false, $this->ns, $this->isPrefix);
-
-            $this->libxmlSettings($disableEntities, $internalErrors);
+            libxml_disable_entity_loader($disableEntities);
+            libxml_use_internal_errors($internalErrors);
         } catch (Exception $e) {
-            $this->libxmlSettings($disableEntities, $internalErrors);
+            libxml_disable_entity_loader($disableEntities);
+            libxml_use_internal_errors($internalErrors);
 
             throw new XmlParserException(
                 'Unable to parse response body into XML: ' . $e->getMessage(),
                 $e,
-                (libxml_get_last_error()) ?: null
+                $this->getLastError()
             );
         }
 
@@ -97,14 +102,12 @@ class Xml implements Parser
     }
 
     /**
-     * Sets some libxml settings
+     * Returns last error
      *
-     * @param boolean $disableEntities
-     * @param boolean $internalErrors
+     * @return string|null
      */
-    private function libxmlSettings(&$disableEntities, &$internalErrors)
+    private function getLastError()
     {
-        $disableEntities = libxml_disable_entity_loader($disableEntities);
-        $internalErrors = libxml_use_internal_errors($internalErrors);
+        return (libxml_get_last_error()) ?: null;
     }
 }
