@@ -59,13 +59,13 @@ class Xml implements Parser
         $internalErrors = libxml_use_internal_errors(true);
 
         try {
-            $data = new SimpleXMLElement(
-                (string) $response ?: '<root />',
-                $this->options,
-                false,
-                $this->ns,
-                $this->isPrefix
-            );
+            $response = (string) $response;
+
+            if (empty($response)) {
+                $response = '<root />';
+            }
+
+            $data = new SimpleXMLElement($response, $this->options, false, $this->ns, $this->isPrefix);
 
             libxml_disable_entity_loader($disableEntities);
             libxml_use_internal_errors($internalErrors);
@@ -73,10 +73,14 @@ class Xml implements Parser
             libxml_disable_entity_loader($disableEntities);
             libxml_use_internal_errors($internalErrors);
 
+            if (!$error = libxml_get_last_error()) {
+                $error = null;
+            }
+
             throw new XmlParserException(
                 'Unable to parse response body into XML: ' . $e->getMessage(),
                 $e,
-                libxml_get_last_error() ?: null
+                $error
             );
         }
 
