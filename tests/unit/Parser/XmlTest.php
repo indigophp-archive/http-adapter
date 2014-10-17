@@ -33,6 +33,8 @@ class XmlTest extends Test
     /**
      * @covers ::__construct
      * @covers ::parse
+     * @covers ::normalizeResponse
+     * @covers ::libxmlSettings
      */
     public function testParse()
     {
@@ -46,6 +48,7 @@ class XmlTest extends Test
     /**
      * @covers            ::__construct
      * @covers            ::parse
+     * @covers            ::libxmlSettings
      * @expectedException Indigo\Http\Exception\ParserException
      */
     public function testParseFailed()
