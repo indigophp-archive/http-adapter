@@ -26,7 +26,7 @@ class Xml implements Parser
     /**
      * @var integer
      */
-    private $assoc = LIBXML_NONET;
+    private $options = LIBXML_NONET;
 
     /**
      * @var string
@@ -39,9 +39,9 @@ class Xml implements Parser
     private $isPrefix = false;
 
     /**
-     * @param integer  $options
-     * @param string   $ns
-     * @param boolean  $isPrefix
+     * @param integer $options
+     * @param string  $ns
+     * @param boolean $isPrefix
      */
     public function __construct($options = LIBXML_NONET, $ns = '', $isPrefix = false)
     {

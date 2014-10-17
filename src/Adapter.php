@@ -11,8 +11,8 @@
 
 namespace Indigo\Http;
 
-use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Generic Client Adapter interface
@@ -24,11 +24,11 @@ interface Adapter
     /**
      * Sends a request
      *
-     * @param Request $request
+     * @param RequestInterface $request
      *
-     * @return Response
+     * @return ResponseInterface
      *
      * @throws RequestException If any RequestException is thrown by the adapter
      */
-    public function send(Request $request);
+    public function send(RequestInterface $request);
 }

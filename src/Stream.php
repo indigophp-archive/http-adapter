@@ -42,7 +42,7 @@ class Stream implements StreamableInterface
     private $readable = false;
 
     /**
-     * @var boolean
+     * @var []
      */
     private $meta = [];
 
