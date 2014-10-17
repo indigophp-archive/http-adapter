@@ -12,9 +12,9 @@
 namespace Indigo\Http\Adapter;
 
 use Indigo\Http\Adapter;
+use Indigo\Http\Exception\AdapterException;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use RuntimeException;
 
 /**
  * Mock Adapter
@@ -56,7 +56,7 @@ class Mock implements Adapter
         $response = is_callable($this->response) ? call_user_func($this->response, $request) : $this->response;
 
         if (!$response instanceof Response) {
-            throw new RuntimeException('Mocked response is invalid');
+            throw new AdapterException('Mocked response is invalid');
         }
 
         return $response;

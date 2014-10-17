@@ -62,7 +62,7 @@ class MockTest extends Test
 
     /**
      * @covers            ::send
-     * @expectedException RuntimeException
+     * @expectedException Indigo\Http\Exception\AdapterException
      */
     public function testSendInvalidResponse()
     {
