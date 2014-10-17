@@ -16,7 +16,7 @@ use Indigo\Http\Event;
 use Psr\Http\Message\RequestInterface as Request;
 
 /**
- * Event decorator implementation
+ * Event Adapter decorator
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */

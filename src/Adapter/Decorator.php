@@ -14,7 +14,7 @@ namespace Indigo\Http\Adapter;
 use Indigo\Http\Adapter;
 
 /**
- * Generic Adapter decorator implementation
+ * Generic Adapter decorator
  *
  * Should be used with an Adapter
  *
