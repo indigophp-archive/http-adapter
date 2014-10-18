@@ -15,7 +15,7 @@
         "psr/http-message": "dev-master"
     },
     "require-dev": {
-        "league/event": "~1.0.0",
+        "league/event": "dev-master",
         "kriswallsmith/buzz": "v0.13",
         "guzzle/guzzle": "~3.9.0",
         "guzzlehttp/guzzle": "~4.2.0",
