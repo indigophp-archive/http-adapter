@@ -12,7 +12,7 @@
 namespace Indigo\Http\Adapter;
 
 use Indigo\Http\Adapter;
-use Indigo\Http\Event;
+use Indigo\Http\Event as Events;
 use Psr\Http\Message\RequestInterface as Request;
 
 /**
@@ -30,11 +30,11 @@ class Event implements Adapter
      */
     public function send(Request $request)
     {
-        $this->emit(new Event\Before($this->adapter, $request));
+        $this->emit(new Events\Before($this->adapter, $request));
 
         $response = $this->adapter->send($request);
 
-        $this->emit(new Event\Complete($this->adapter, $request, $response));
+        $this->emit(new Events\Complete($this->adapter, $request, $response));
 
         return $response;
     }

@@ -182,7 +182,7 @@ There are two main type of exceptions:
 ## Testing
 
 ``` bash
-$ codecept run
+$ bin/phpspec run
 ```
 
 
