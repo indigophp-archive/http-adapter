@@ -124,18 +124,6 @@ trait Message
     /**
      * {@inheritdoc}
      */
-    public function setHeaders(array $headers)
-    {
-        $this->headers = [];
-
-        foreach ($headers as $header => $value) {
-            $this->setHeader($header, $value);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function addHeader($header, $value)
     {
         $value = (string) $value;
@@ -145,16 +133,6 @@ trait Message
         }
 
         $this->headers[strtolower($header)][] = $value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addHeaders(array $headers)
-    {
-        foreach ($headers as $header => $value) {
-            $this->addHeader($header, $value);
-        }
     }
 
     /**
