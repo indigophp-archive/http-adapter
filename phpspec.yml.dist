@@ -6,9 +6,5 @@ extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 formatter.name: pretty
 code_coverage:
-    format:
-        - html
-        - clover
-    output:
-        html: build/coverage/
-        clover: build/coverage.xml
+    format: clover
+    output: build/coverage.xml
