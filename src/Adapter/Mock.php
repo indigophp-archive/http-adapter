@@ -31,7 +31,7 @@ class Mock implements Adapter
     private $response;
 
     /**
-     * @param Response|callable $response
+     * @param Response|callable|null $response
      */
     public function __construct($response = null)
     {
@@ -41,7 +41,7 @@ class Mock implements Adapter
     /**
      * Sets the mocked response
      *
-     * @param Response|callable $response
+     * @param Response|callable|null $response
      */
     public function setResponse($response)
     {

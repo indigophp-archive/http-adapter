@@ -32,6 +32,7 @@ class Cache implements Adapter, PoolInterface
     public function send(Request $request)
     {
         $item = $this->getItem($request->getUrl());
+        $cached = null;
 
         // Do we have a cache?
         if (!$item->isMiss()) {
