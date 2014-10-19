@@ -49,7 +49,7 @@ class Buzz implements Adapter
         try {
             $response = $this->browser->send($request);
         } catch (BuzzRequestException $e) {
-            throw new RequestException($e->getMessage(), $e->getCode(), $e);
+            throw RequestException::create($request, $response, $e);
         }
 
         return $this->transformResponse($response);

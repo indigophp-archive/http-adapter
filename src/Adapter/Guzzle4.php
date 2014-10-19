@@ -49,7 +49,7 @@ class Guzzle4 implements Adapter
         try {
             $response = $this->client->send($request);
         } catch (GuzzleRequestException $e) {
-            throw new RequestException($e->getMessage(), $e->getCode(), $e);
+            throw RequestException::create($request, $response, $e);
         }
 
         return $this->transformResponse($response);
