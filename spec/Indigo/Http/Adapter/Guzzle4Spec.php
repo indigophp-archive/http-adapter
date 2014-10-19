@@ -3,7 +3,6 @@
 namespace spec\Indigo\Http\Adapter;
 
 use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Message\RequestInterface as GuzzleRequest;
 use GuzzleHttp\Message\ResponseInterface as GuzzleResponse;
