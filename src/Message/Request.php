@@ -39,7 +39,7 @@ class Request implements RequestInterface
     private $method;
 
     /**
-     * @var string
+     * @var string|object
      */
     private $url;
 

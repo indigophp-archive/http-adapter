@@ -60,12 +60,12 @@ class Guzzle3 implements Adapter
      *
      * @param Request $request
      *
-     * @return Guzzle\Http\Message\RequestInterface
+     * @return \Guzzle\Http\Message\RequestInterface
      */
     private function transformRequest(Request $request)
     {
         $method = $request->getMethod();
-        $url = $request->getUrl();
+        $url = (string) $request->getUrl();
         $options = [
             'version' => $request->getProtocolVersion(),
             'headers' => $request->getHeaders(),
@@ -81,7 +81,7 @@ class Guzzle3 implements Adapter
     /**
      * Returns a Response
      *
-     * @param Guzzle\Http\Message\Response $response
+     * @param \Guzzle\Http\Message\Response $response
      *
      * @return Response
      */
@@ -96,8 +96,9 @@ class Guzzle3 implements Adapter
         }
 
         if ($body = $response->getBody()) {
-            $body = new Stream($body->detach());
-            $transformed->setBody($body);
+            $stream = new Stream;
+            $stream->attach($body->getStream());
+            $transformed->setBody($stream);
         }
 
         $transformed->setProtocolVersion($response->getProtocolVersion());
