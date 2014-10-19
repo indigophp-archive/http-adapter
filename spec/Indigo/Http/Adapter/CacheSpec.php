@@ -30,13 +30,13 @@ class CacheSpec extends ObjectBehavior
     {
         $this->adapter->send($request)->willReturn($response);
 
-        $request->getUrl()->willReturn('foo.com');
+        $request->getUrl()->willReturn('http://foo.com');
         $response->getHeader('ETag')->willReturn('etag');
         $response->getStatusCode()->willReturn(200);
 
         $this->send($request)->shouldReturn($response);
 
-        $this->getItem('foo.com')->isMiss()->shouldReturn(false);
+        $this->getItem(md5('http://foo.com'))->isMiss()->shouldReturn(false);
     }
 
     function it_should_return_a_cached_response(Request $request, Response $response, Response $cached)
@@ -45,9 +45,9 @@ class CacheSpec extends ObjectBehavior
 
         $cached->getStatusCode()->willReturn(200);
         $cached->getHeader('ETag')->willReturn('etag');
-        $this->getItem('foo.com')->set($cached);
+        $this->getItem(md5('http://foo.com'))->set($cached);
 
-        $request->getUrl()->willReturn('foo.com');
+        $request->getUrl()->willReturn('http://foo.com');
         $request->addHeader('If-Modified-Since', Argument::type('string'))->shouldBeCalled();
         $request->addHeader('If-None-Match', 'etag')->shouldBeCalled();
         $response->getStatusCode()->willReturn(304);

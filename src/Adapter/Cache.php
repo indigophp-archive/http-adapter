@@ -33,7 +33,9 @@ class Cache implements Adapter, PoolInterface
      */
     public function send(Request $request)
     {
-        $item = $this->getItem($request->getUrl());
+        // We hash it because / is not enabled in Stash
+        $hash = md5($request->getUrl());
+        $item = $this->getItem($hash);
         $cached = $item->get();
 
         // Do we have a cache?
