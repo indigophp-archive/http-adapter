@@ -37,7 +37,7 @@ class ResponseSpec extends ObjectBehavior
         $this->shouldThrow('InvalidArgumentException')->duringSetStatusCode('000');
     }
 
-    function it_should_throw_an_exception_when_the_status_code_is_out_of_rang()
+    function it_should_throw_an_exception_when_the_status_code_is_out_of_range()
     {
         $this->shouldThrow('InvalidArgumentException')->duringSetStatusCode(600);
     }
