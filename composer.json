@@ -10,12 +10,19 @@
             "email": "mark.sagikazar@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/sagikazarmark/Stash.git"
+        }
+    ],
     "require": {
         "php": ">=5.4.0",
         "psr/http-message": "dev-master"
     },
     "require-dev": {
         "league/event": "dev-master",
+        "tedivm/stash": "dev-feature/pool-trait",
         "kriswallsmith/buzz": "v0.13",
         "guzzle/guzzle": "~3.9.0",
         "guzzlehttp/guzzle": "~4.2.0",
