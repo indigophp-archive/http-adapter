@@ -13,7 +13,7 @@ namespace Indigo\Http\Adapter;
 
 use Indigo\Http\Adapter;
 use Indigo\Http\Stream;
-use Indigo\Http\Response;
+use Indigo\Http\Message\Response;
 use Indigo\Http\Exception\RequestException;
 use Psr\Http\Message\RequestInterface as Request;
 use Guzzle\Http\ClientInterface;

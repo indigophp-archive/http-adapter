@@ -20,5 +20,5 @@ use Psr\Http\Message\MessageInterface;
  */
 class Message implements MessageInterface
 {
-    use \Indigo\Http\Message;
+    use \Indigo\Http\Message\Message;
 }

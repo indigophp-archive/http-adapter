@@ -11,7 +11,7 @@ class MessageSpec extends ObjectBehavior
     {
         $this->shouldHaveType('Indigo\Http\Stub\Message');
         $this->shouldHaveType('Psr\Http\Message\MessageInterface');
-        $this->shouldUseTrait('Indigo\Http\Message');
+        $this->shouldUseTrait('Indigo\Http\Message\Message');
     }
 
     function it_should_have_protocol_version()

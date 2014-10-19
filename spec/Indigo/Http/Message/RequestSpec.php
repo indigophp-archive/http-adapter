@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Indigo\Http;
+namespace spec\Indigo\Http\Message;
 
 use PhpSpec\ObjectBehavior;
 
@@ -8,7 +8,7 @@ class RequestSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Indigo\Http\Request');
+        $this->shouldHaveType('Indigo\Http\Message\Request');
         $this->shouldHaveType('Psr\Http\Message\RequestInterface');
     }
 

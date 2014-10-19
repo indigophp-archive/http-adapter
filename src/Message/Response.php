@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Http;
+namespace Indigo\Http\Message;
 
 use Psr\Http\Message\ResponseInterface;
 use InvalidArgumentException;
