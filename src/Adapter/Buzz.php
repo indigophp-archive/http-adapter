@@ -82,7 +82,7 @@ class Buzz implements Adapter
     /**
      * Returns a Response
      *
-     * @param \Buzz\Message\MessageInterface $response
+     * @param \Buzz\Message\Response $response
      *
      * @return Response
      */
