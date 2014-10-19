@@ -60,12 +60,12 @@ class Buzz implements Adapter
      *
      * @param Request $request
      *
-     * @return Butt\Message\RequestInterface
+     * @return \Buzz\Message\RequestInterface
      */
     private function transformRequest(Request $request)
     {
         $method = $request->getMethod();
-        $url = $request->getUrl();
+        $url = (string) $request->getUrl();
 
         $transformed = $this->browser->getMessageFactory()->createRequest($method, $url);
 
@@ -76,14 +76,13 @@ class Buzz implements Adapter
             $transformed->setContent((string) $body);
         }
 
-
         return $transformed;
     }
 
     /**
      * Returns a Response
      *
-     * @param Buzz\Message\Response $response
+     * @param \Buzz\Message\Response $response
      *
      * @return Response
      */
@@ -98,7 +97,7 @@ class Buzz implements Adapter
         }
 
         if ($body = $response->getContent()) {
-            $body = $this->createStream($content);
+            $body = $this->createStream($body);
             $transformed->setBody($body);
         }
 
@@ -110,19 +109,21 @@ class Buzz implements Adapter
     /**
      * Creates a new Stream from string
      *
-     * @param string $resource
+     * @param string $body
      *
      * @return Stream
      */
-    public function createStream($resource)
+    public function createStream($body)
     {
-        $stream = fopen('php://temp', 'r+');
-        $stream = new Stream($stream);
+        $resource = fopen('php://temp', 'r+');
 
-        if (!empty($resource)) {
-            $stream->write($resource);
-            $stream->seek(0);
+        if (!empty($body)) {
+            fwrite($resource, $body);
+            fseek($resource, 0);
         }
+
+        $stream = new Stream;
+        $stream->attach($resource);
 
         return $stream;
     }
