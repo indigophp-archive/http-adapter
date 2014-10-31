@@ -23,7 +23,7 @@ class CacheSpec extends ObjectBehavior
         $this->shouldHaveType('Indigo\Http\Adapter\Cache');
         $this->shouldUseTrait('Indigo\Http\Adapter\Decorator');
         $this->shouldUseTrait('Stash\Interfaces\PoolInterface');
-        $this->shouldHaveType('Indigo\Http\Adapter');
+        $this->shouldImplement('Indigo\Http\Adapter');
     }
 
     function it_should_cache_a_response(Request $request, Response $response)

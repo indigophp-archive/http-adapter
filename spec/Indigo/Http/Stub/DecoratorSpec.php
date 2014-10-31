@@ -16,7 +16,7 @@ class DecoratorSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Http\Stub\Decorator');
-        $this->shouldHaveType('Indigo\Http\Adapter');
+        $this->shouldImplement('Indigo\Http\Adapter');
         $this->shouldUseTrait('Indigo\Http\Adapter\Decorator');
     }
 

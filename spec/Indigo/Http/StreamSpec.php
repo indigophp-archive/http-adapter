@@ -24,7 +24,7 @@ class StreamSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Http\Stream');
-        $this->shouldHaveType('Psr\Http\Message\StreamableInterface');
+        $this->shouldImplement('Psr\Http\Message\StreamableInterface');
     }
 
     function it_should_allow_casting_to_string()

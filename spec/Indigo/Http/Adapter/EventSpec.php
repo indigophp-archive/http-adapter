@@ -23,7 +23,7 @@ class EventSpec extends ObjectBehavior
     {
         $this->shouldHaveType('Indigo\Http\Adapter\Event');
         $this->shouldUseTrait('Indigo\Http\Adapter\Decorator');
-        $this->shouldHaveType('Indigo\Http\Adapter');
+        $this->shouldImplement('Indigo\Http\Adapter');
     }
 
     function it_should_expose_events(Request $request, Response $response)

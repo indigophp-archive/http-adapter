@@ -10,7 +10,7 @@ class EventSpec extends ObjectBehavior
     {
         $this->shouldHaveType('Indigo\Http\Stub\Event');
         $this->shouldHaveType('Indigo\Http\Event\Event');
-        $this->shouldHaveType('League\Event\EventInterface');
+        $this->shouldImplement('League\Event\EventInterface');
     }
 
     function it_should_have_a_name()

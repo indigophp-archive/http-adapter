@@ -11,7 +11,7 @@ class MockSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Http\Adapter\Mock');
-        $this->shouldHaveType('Indigo\Http\Adapter');
+        $this->shouldImplement('Indigo\Http\Adapter');
     }
 
     function it_should_accept_response(Response $response)

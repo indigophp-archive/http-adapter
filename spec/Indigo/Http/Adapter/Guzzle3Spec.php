@@ -21,7 +21,7 @@ class Guzzle3Spec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Http\Adapter\Guzzle3');
-        $this->shouldHaveType('Indigo\Http\Adapter');
+        $this->shouldImplement('Indigo\Http\Adapter');
     }
 
     function it_should_return_a_response(Request $request, GuzzleRequest $guzzleRequest, GuzzleResponse $guzzleResponse)

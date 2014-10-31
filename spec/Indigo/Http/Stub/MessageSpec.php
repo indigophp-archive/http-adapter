@@ -10,7 +10,7 @@ class MessageSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Http\Stub\Message');
-        $this->shouldHaveType('Psr\Http\Message\MessageInterface');
+        $this->shouldImplement('Psr\Http\Message\MessageInterface');
         $this->shouldUseTrait('Indigo\Http\Message\Message');
     }
 

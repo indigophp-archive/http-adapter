@@ -22,7 +22,7 @@ class BuzzSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Http\Adapter\Buzz');
-        $this->shouldHaveType('Indigo\Http\Adapter');
+        $this->shouldImplement('Indigo\Http\Adapter');
     }
 
     function it_should_return_a_response(Request $request, BuzzRequest $buzzRequest, BuzzResponse $buzzResponse, Factory $factory)

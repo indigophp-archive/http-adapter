@@ -9,7 +9,7 @@ class ResponseSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Http\Message\Response');
-        $this->shouldHaveType('Psr\Http\Message\ResponseInterface');
+        $this->shouldImplement('Psr\Http\Message\ResponseInterface');
     }
 
     function it_should_allow_to_set_status_code()
