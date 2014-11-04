@@ -11,15 +11,16 @@
 
 namespace Indigo\Http\Message;
 
-use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\IncomingResponseInterface;
+use Psr\Http\Message\StreamableInterface;
 use InvalidArgumentException;
 
 /**
- * Implementation of PSR HTTP Response
+ * Implementation of PSR HTTP Incoming Response
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Response implements ResponseInterface
+class Response implements IncomingResponseInterface
 {
     use Message;
 
@@ -100,6 +101,33 @@ class Response implements ResponseInterface
     private $reasonPhrase;
 
     /**
+     * @param integer             $statusCode
+     * @param string|null         $reasonPhrase
+     * @param array               $headers
+     * @param StreamableInterface $body
+     * @param string              $protocolVersion
+     */
+    public function __construct(
+        $statusCode,
+        $reasonPhrase = null,
+        array $headers = [],
+        StreamableInterface $body = null,
+        $protocolVersion = '1.1'
+    ) {
+        $this->assertValidStatusCode($statusCode);
+
+        if (empty($reasonPhrase)) {
+            $reasonPhrase = $this->determineReasonPhrase($statusCode);
+        }
+
+        $this->statusCode = $statusCode;
+        $this->reasonPhrase = $reasonPhrase;
+        $this->headers = $this->cleanHeaders($headers);
+        $this->body = $body;
+        $this->protocolVersion = $protocolVersion;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getStatusCode()
@@ -110,19 +138,9 @@ class Response implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatusCode($statusCode)
+    public function getReasonPhrase()
     {
-        $this->assertValidStatusCode($statusCode);
-
-        $this->statusCode = $statusCode;
-
-        if (array_key_exists($statusCode, self::$reasonPhrases)) {
-            $reasonPhrase = self::$reasonPhrases[$statusCode];
-        } else {
-            $reasonPhrase = 'Unknown';
-        }
-
-        $this->setReasonPhrase($reasonPhrase);
+        return $this->reasonPhrase;
     }
 
     /**
@@ -142,18 +160,42 @@ class Response implements ResponseInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Determines the reason phrase from status code
+     *
+     * @param integer $statusCode
+     *
+     * @return string
      */
-    public function getReasonPhrase()
+    private function determineReasonPhrase($statusCode)
     {
-        return $this->reasonPhrase;
+        if (array_key_exists($statusCode, self::$reasonPhrases)) {
+            return self::$reasonPhrases[$statusCode];
+        }
+
+        return 'Unknown';
     }
 
     /**
-     * {@inheritdoc}
+     * Cleans headers
+     *
+     * @param array $headers
+     *
+     * @return array
      */
-    public function setReasonPhrase($reasonPhrase)
+    private function cleanHeaders(array $headers)
     {
-        $this->reasonPhrase = $reasonPhrase;
+        $cleaned = [];
+
+        foreach ($headers as $header => $value) {
+            if (is_array($value)) {
+                $value = array_map('strval', $value);
+            } else {
+                $value = [(string) $value];
+            }
+
+            $cleaned[strtolower($header)] = $value;
+        }
+
+        return $cleaned;
     }
 }
