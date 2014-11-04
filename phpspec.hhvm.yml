@@ -1,5 +1,0 @@
-suites:
-    http_suite:
-        namespace: Indigo\Http
-        psr4_prefix: Indigo\Http
-formatter.name: pretty

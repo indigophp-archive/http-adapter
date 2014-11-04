@@ -1,11 +1,12 @@
 # Indigo HTTP Adapter
 
+[![Latest Version](https://img.shields.io/github/release/indigophp/http-adapter.svg?style=flat-square)](https://github.com/indigophp/http-adapter/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/travis/indigophp/http-adapter/develop.svg?style=flat-square)](https://travis-ci.org/indigophp/http-adapter)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/indigophp/http-adapter.svg?style=flat-square)](https://scrutinizer-ci.com/g/indigophp/http-adapter)
-[![Packagist Version](https://img.shields.io/packagist/v/indigophp/http-adapter.svg?style=flat-square)](https://packagist.org/packages/indigophp/http-adapter)
-[![Total Downloads](https://img.shields.io/packagist/dt/indigophp/http-adapter.svg?style=flat-square)](https://packagist.org/packages/indigophp/http-adapter)
 [![Quality Score](https://img.shields.io/scrutinizer/g/indigophp/http-adapter.svg?style=flat-square)](https://scrutinizer-ci.com/g/indigophp/http-adapter)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![HHVM Status](https://img.shields.io/hhvm/indigophp/http-adapter.svg?style=flat-square)](http://hhvm.h4cc.de/package/indigophp/http-adapter)
+[![Total Downloads](https://img.shields.io/packagist/dt/indigophp/http-adapter.svg?style=flat-square)](https://packagist.org/packages/indigophp/http-adapter)
 
 **Provides adapters for common HTTP Client libraries.**
 
@@ -21,12 +22,8 @@ This package also provides a simple implementation of the latest PSR interfaces.
 
 Via Composer
 
-``` json
-{
-    "require": {
-        "indigophp/http-adapter": "@stable"
-    }
-}
+``` bash
+composer require indigophp/http-adapter
 ```
 
 
@@ -182,13 +179,13 @@ There are two main type of exceptions:
 ## Testing
 
 ``` bash
-$ bin/phpspec run
+$ phpspec run
 ```
 
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/indigophp/http-adapter/blob/develop/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 
 ## Credits
@@ -205,4 +202,4 @@ Please see [CONTRIBUTING](https://github.com/indigophp/http-adapter/blob/develop
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/indigophp/http-adapter/blob/develop/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
