@@ -2,7 +2,7 @@
 
 namespace spec\Indigo\Http\Adapter;
 
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\RequestInterface as GuzzleRequest;
 use Guzzle\Http\Message\Response as GuzzleResponse;

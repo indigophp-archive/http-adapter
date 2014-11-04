@@ -3,7 +3,7 @@
 namespace spec\Indigo\Http\Event;
 
 use Indigo\Http\Adapter;
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
 use PhpSpec\ObjectBehavior;
 
 class BeforeSpec extends ObjectBehavior

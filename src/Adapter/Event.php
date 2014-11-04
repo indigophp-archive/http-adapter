@@ -13,7 +13,7 @@ namespace Indigo\Http\Adapter;
 
 use Indigo\Http\Adapter;
 use Indigo\Http\Event as Events;
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
 
 /**
  * Event Adapter decorator

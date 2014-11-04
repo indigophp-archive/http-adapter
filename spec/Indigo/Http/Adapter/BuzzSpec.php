@@ -2,7 +2,7 @@
 
 namespace spec\Indigo\Http\Adapter;
 
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
 use Buzz\Browser;
 use Buzz\Message\Request as BuzzRequest;
 use Buzz\Message\Response as BuzzResponse;

@@ -13,8 +13,8 @@ namespace Indigo\Http\Adapter;
 
 use Indigo\Http\Adapter;
 use Indigo\Http\Exception\AdapterException;
-use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
+use Psr\Http\Message\IncomingResponseInterface as Response;
 
 /**
  * Mock Adapter

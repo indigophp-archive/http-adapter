@@ -11,8 +11,8 @@
 
 namespace Indigo\Http\Exception;
 
-use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
+use Psr\Http\Message\IncomingResponseInterface as Response;
 use Exception;
 
 /**

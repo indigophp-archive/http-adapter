@@ -13,7 +13,7 @@ class StreamSpec extends ObjectBehavior
         fwrite($stream, 'Test content');
         fseek($stream, 0);
 
-        $this->attach($stream);
+        $this->beConstructedWith($stream);
     }
 
     function letgo()
@@ -56,7 +56,7 @@ class StreamSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_when_the_stream_is_not_resource()
     {
-        $this->shouldThrow('InvalidArgumentException')->duringAttach('not_a_resource');
+        $this->shouldThrow('InvalidArgumentException')->during('__construct', ['000']);
     }
 
     function it_should_not_have_a_size()

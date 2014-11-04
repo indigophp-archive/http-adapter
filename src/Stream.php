@@ -63,6 +63,22 @@ class Stream implements StreamableInterface
     ];
 
     /**
+     * @param resource $stream
+     */
+    public function __construct($stream)
+    {
+        if (!is_resource($stream)) {
+            throw new InvalidArgumentException('Stream must be a resource');
+        }
+
+        $this->stream = $stream;
+        $this->meta = stream_get_meta_data($stream);
+        $this->seekable = $this->meta['seekable'];
+        $this->writable = array_key_exists($this->meta['mode'], self::$readWriteHash['write']);
+        $this->readable = array_key_exists($this->meta['mode'], self::$readWriteHash['read']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __toString()
@@ -94,22 +110,6 @@ class Stream implements StreamableInterface
         $this->meta = [];
 
         return $stream;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attach($stream)
-    {
-        if (!is_resource($stream)) {
-            throw new InvalidArgumentException('Stream must be a resource');
-        }
-
-        $this->stream = $stream;
-        $this->meta = stream_get_meta_data($stream);
-        $this->seekable = $this->meta['seekable'];
-        $this->writable = array_key_exists($this->meta['mode'], self::$readWriteHash['write']);
-        $this->readable = array_key_exists($this->meta['mode'], self::$readWriteHash['read']);
     }
 
     /**

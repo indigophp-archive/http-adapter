@@ -12,7 +12,7 @@
 namespace Indigo\Http\Stub;
 
 use Indigo\Http\Adapter;
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
 
 /**
  * Adapter Decorator Stub

@@ -2,13 +2,13 @@
 
 namespace spec\Indigo\Http\Adapter;
 
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Message\RequestInterface as GuzzleRequest;
 use GuzzleHttp\Message\ResponseInterface as GuzzleResponse;
 use PhpSpec\ObjectBehavior;
 
-class Guzzle4Spec extends ObjectBehavior
+class GuzzleSpec extends ObjectBehavior
 {
     protected $client;
 
@@ -20,7 +20,7 @@ class Guzzle4Spec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Indigo\Http\Adapter\Guzzle4');
+        $this->shouldHaveType('Indigo\Http\Adapter\Guzzle');
         $this->shouldImplement('Indigo\Http\Adapter');
     }
 

@@ -15,7 +15,7 @@ use Indigo\Http\Adapter;
 use Indigo\Http\Stream;
 use Indigo\Http\Message\Response;
 use Indigo\Http\Exception\RequestException;
-use Psr\Http\Message\RequestInterface as Request;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Exception\RequestException as GuzzleRequestException;
 
@@ -87,21 +87,19 @@ class Guzzle3 implements Adapter
      */
     private function transformResponse($response)
     {
-        $transformed = new Response;
-
-        $transformed->setStatusCode($response->getStatusCode());
-
-        foreach ($response->getHeaders() as $header => $value) {
-            $transformed->setHeader($header, $value);
-        }
-
         if ($body = $response->getBody()) {
-            $stream = new Stream;
-            $stream->attach($body->getStream());
-            $transformed->setBody($stream);
+            $body = new Stream($body->getStream());
+        } else {
+            $body = null;
         }
 
-        $transformed->setProtocolVersion($response->getProtocolVersion());
+        $transformed = new Response(
+            $response->getStatusCode(),
+            null,
+            $response->getHeaders(),
+            $body,
+            $response->getProtocolVersion()
+        );
 
         return $transformed;
     }

@@ -4,9 +4,8 @@ namespace spec\Indigo\Http\Adapter;
 
 use Indigo\Http\Adapter;
 use Indigo\Http\Event\Before;
-use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
-use League\Event\ListenerInterface as Listener;
+use Psr\Http\Message\OutgoingRequestInterface as Request;
+use Psr\Http\Message\IncomingResponseInterface as Response;
 use PhpSpec\ObjectBehavior;
 
 class EventSpec extends ObjectBehavior
