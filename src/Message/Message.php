@@ -48,25 +48,9 @@ trait Message
     /**
      * {@inheritdoc}
      */
-    public function setProtocolVersion($protocolVersion)
-    {
-        $this->protocolVersion = $protocolVersion;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getBody()
     {
         return $this->body;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setBody(StreamableInterface $body = null)
-    {
-        $this->body = $body;
     }
 
     /**
@@ -105,43 +89,5 @@ trait Message
         }
 
         return $value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setHeader($header, $value)
-    {
-        if (is_array($value)) {
-            $value = array_map('strval', $value);
-        } else {
-            $value = [(string) $value];
-        }
-
-        $this->headers[strtolower($header)] = $value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addHeader($header, $value)
-    {
-        $value = (string) $value;
-
-        if (!$this->hasHeader($header)) {
-            return $this->setHeader($header, $value);
-        }
-
-        $this->headers[strtolower($header)][] = $value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeHeader($header)
-    {
-        if ($this->hasHeader($header)) {
-            unset($this->headers[strtolower($header)]);
-        }
     }
 }
