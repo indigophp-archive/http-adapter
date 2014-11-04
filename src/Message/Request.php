@@ -11,14 +11,15 @@
 
 namespace Indigo\Http\Message;
 
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\OutgoingRequestInterface;
+use Psr\Http\Message\StreamableInterface;
 
 /**
- * Implementation of PSR HTTP Request
+ * Implementation of PSR HTTP Outgoing Request
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Request implements RequestInterface
+class Request implements OutgoingRequestInterface
 {
     use Message;
 
@@ -42,6 +43,14 @@ class Request implements RequestInterface
      * @var string|object
      */
     private $url;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setProtocolVersion($protocolVersion)
+    {
+        $this->protocolVersion = $protocolVersion;
+    }
 
     /**
      * {@inheritdoc}
@@ -73,5 +82,49 @@ class Request implements RequestInterface
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setHeader($header, $value)
+    {
+        if (is_array($value)) {
+            $value = array_map('strval', $value);
+        } else {
+            $value = [(string) $value];
+        }
+
+        $this->headers[strtolower($header)] = $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addHeader($header, $value)
+    {
+        if (!$this->hasHeader($header)) {
+            return $this->setHeader($header, $value);
+        }
+
+        $this->headers[strtolower($header)][] = (string) $value;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeHeader($header)
+    {
+        if ($this->hasHeader($header)) {
+            unset($this->headers[strtolower($header)]);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setBody(StreamableInterface $body = null)
+    {
+        $this->body = $body;
     }
 }
