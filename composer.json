@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "psr/http-message": "dev-master"
+        "psr/http-message": "~0.5.1"
     },
     "require-dev": {
         "league/event": "dev-master",
