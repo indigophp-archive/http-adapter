@@ -48,10 +48,10 @@ class Guzzle implements Adapter
      */
     public function send(Request $request)
     {
-        $request = $this->transformRequest($request);
+        $guzzleRequest = $this->transformRequest($request);
 
         try {
-            $response = $this->transformResponse($this->client->send($request));
+            $response = $this->transformResponse($this->client->send($guzzleRequest));
         } catch (GuzzleRequestException $e) {
             throw RequestException::create($request, $response, $e);
         }

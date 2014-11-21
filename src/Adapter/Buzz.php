@@ -44,10 +44,10 @@ class Buzz implements Adapter
      */
     public function send(Request $request)
     {
-        $request = $this->transformRequest($request);
+        $buzzRequest = $this->transformRequest($request);
 
         try {
-            $response = $this->transformResponse($this->browser->send($request));
+            $response = $this->transformResponse($this->browser->send($buzzRequest));
         } catch (BuzzRequestException $e) {
             throw RequestException::create($request, $response, $e);
         }
@@ -82,7 +82,7 @@ class Buzz implements Adapter
     /**
      * Returns a Response
      *
-     * @param \Buzz\Message\Response $response
+     * @param \Buzz\Message\MessageInterface $response
      *
      * @return Response
      */

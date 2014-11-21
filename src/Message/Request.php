@@ -40,7 +40,7 @@ class Request implements OutgoingRequestInterface
     private $method;
 
     /**
-     * @var string|object
+     * @var string
      */
     private $url;
 
