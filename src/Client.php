@@ -86,7 +86,7 @@ class Client
     /**
      * Creates and executes a GET request
      *
-     * @param string|object $url
+     * @param mixed $url
      * @param array $options
      *
      * @return string
@@ -99,7 +99,7 @@ class Client
     /**
      * Creates and executes a POST request
      *
-     * @param string|object $url
+     * @param mixed $url
      * @param array $options
      *
      * @return string
@@ -112,7 +112,7 @@ class Client
     /**
      * Creates and executes a PUT request
      *
-     * @param string|object $url
+     * @param mixed $url
      * @param array $options
      *
      * @return string
@@ -125,7 +125,7 @@ class Client
     /**
      * Creates and executes a HEAD request
      *
-     * @param string|object $url
+     * @param mixed $url
      * @param array $options
      *
      * @return string
@@ -138,7 +138,7 @@ class Client
     /**
      * Creates and executes a DELETE request
      *
-     * @param string|object $url
+     * @param mixed $url
      * @param array $options
      *
      * @return string
@@ -151,7 +151,7 @@ class Client
     /**
      * Creates and executes a PATCH request
      *
-     * @param string|object $url
+     * @param mixed $url
      * @param array $options
      *
      * @return string
@@ -164,7 +164,7 @@ class Client
     /**
      * Creates and executes a OPTIONS request
      *
-     * @param string|object $url
+     * @param mixed $url
      * @param array $options
      *
      * @return string
