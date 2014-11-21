@@ -47,12 +47,12 @@ class Guzzle3 implements Adapter
         $request = $this->transformRequest($request);
 
         try {
-            $response = $this->client->send($request);
+            $response = $this->transformResponse($this->client->send($request));
         } catch (GuzzleRequestException $e) {
             throw RequestException::create($request, $response, $e);
         }
 
-        return $this->transformResponse($response);
+        return $response;
     }
 
     /**
@@ -87,6 +87,10 @@ class Guzzle3 implements Adapter
      */
     private function transformResponse($response)
     {
+        if (is_null($response)) {
+            return;
+        }
+
         if ($body = $response->getBody()) {
             $body = new Stream($body->getStream());
         } else {

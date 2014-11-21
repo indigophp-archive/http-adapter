@@ -47,12 +47,12 @@ class Buzz implements Adapter
         $request = $this->transformRequest($request);
 
         try {
-            $response = $this->browser->send($request);
+            $response = $this->transformResponse($this->browser->send($request));
         } catch (BuzzRequestException $e) {
             throw RequestException::create($request, $response, $e);
         }
 
-        return $this->transformResponse($response);
+        return $response;
     }
 
     /**
@@ -86,8 +86,12 @@ class Buzz implements Adapter
      *
      * @return Response
      */
-    private function transformResponse($response)
+    private function transformResponse($response = null)
     {
+        if (is_null($response)) {
+            return;
+        }
+
         if ($body = $response->getContent()) {
             $body = Stream::create($body);
         } else {
