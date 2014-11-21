@@ -10,12 +10,9 @@ use PhpSpec\ObjectBehavior;
 
 class Guzzle3Spec extends ObjectBehavior
 {
-    protected $client;
-
     function let(ClientInterface $client)
     {
         $this->beConstructedWith($client);
-        $this->client = $client;
     }
 
     function it_is_initializable()
@@ -24,7 +21,7 @@ class Guzzle3Spec extends ObjectBehavior
         $this->shouldImplement('Indigo\Http\Adapter');
     }
 
-    function it_should_return_a_response(Request $request, GuzzleRequest $guzzleRequest, GuzzleResponse $guzzleResponse)
+    function it_should_return_a_response(ClientInterface $client, Request $request, GuzzleRequest $guzzleRequest, GuzzleResponse $guzzleResponse)
     {
         $request->getMethod()->willReturn('GET');
         $request->getUrl()->willReturn('http://foo.com');
@@ -37,12 +34,12 @@ class Guzzle3Spec extends ObjectBehavior
         $guzzleResponse->getHeaders()->willReturn([]);
         $guzzleResponse->getBody()->willReturn(null);
 
-        $this->client->createRequest('GET', 'http://foo.com', ['version' => '1.1', 'headers' => []])->willReturn($guzzleRequest);
-        $this->client->send($guzzleRequest)->willReturn($guzzleResponse);
+        $client->createRequest('GET', 'http://foo.com', ['version' => '1.1', 'headers' => []])->willReturn($guzzleRequest);
+        $client->send($guzzleRequest)->willReturn($guzzleResponse);
 
         $response = $this->send($request);
 
-        $response->getStatusCode()->shouldBe(200);
-        $response->getProtocolVersion()->shouldBe('1.1');
+        $response->getStatusCode()->shouldReturn(200);
+        $response->getProtocolVersion()->shouldReturn('1.1');
     }
 }

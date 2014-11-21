@@ -9,17 +9,9 @@ use PhpSpec\ObjectBehavior;
 
 class CompleteSpec extends ObjectBehavior
 {
-    protected $adapter;
-    protected $request;
-    protected $response;
-
     public function let(Adapter $adapter, Request $request, Response $response)
     {
         $this->beConstructedWith($adapter, $request, $response);
-
-        $this->adapter = $adapter;
-        $this->request = $request;
-        $this->response = $response;
     }
 
     function it_is_initializable()
@@ -28,10 +20,10 @@ class CompleteSpec extends ObjectBehavior
         $this->shouldHaveType('Indigo\Http\Event\Event');
     }
 
-    function it_should_expose_adapter_and_request()
+    function it_should_expose_adapter_and_request(Adapter $adapter, Request $request, Response $response)
     {
-        $this->getAdapter()->shouldReturn($this->adapter);
-        $this->getRequest()->shouldReturn($this->request);
-        $this->getResponse()->shouldReturn($this->response);
+        $this->getAdapter()->shouldReturn($adapter);
+        $this->getRequest()->shouldReturn($request);
+        $this->getResponse()->shouldReturn($response);
     }
 }

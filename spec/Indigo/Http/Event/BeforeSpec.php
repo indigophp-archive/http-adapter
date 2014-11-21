@@ -8,15 +8,9 @@ use PhpSpec\ObjectBehavior;
 
 class BeforeSpec extends ObjectBehavior
 {
-    protected $adapter;
-    protected $request;
-
     public function let(Adapter $adapter, Request $request)
     {
         $this->beConstructedWith($adapter, $request);
-
-        $this->adapter = $adapter;
-        $this->request = $request;
     }
 
     function it_is_initializable()
@@ -25,9 +19,9 @@ class BeforeSpec extends ObjectBehavior
         $this->shouldHaveType('Indigo\Http\Event\Event');
     }
 
-    function it_should_expose_adapter_and_request()
+    function it_should_expose_adapter_and_request(Adapter $adapter, Request $request)
     {
-        $this->getAdapter()->shouldReturn($this->adapter);
-        $this->getRequest()->shouldReturn($this->request);
+        $this->getAdapter()->shouldReturn($adapter);
+        $this->getRequest()->shouldReturn($request);
     }
 }

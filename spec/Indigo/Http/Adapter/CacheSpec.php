@@ -10,11 +10,8 @@ use Prophecy\Argument;
 
 class CacheSpec extends ObjectBehavior
 {
-    protected $adapter;
-
     function let(Adapter $adapter)
     {
-        $this->adapter = $adapter;
         $this->beConstructedWith($adapter);
     }
 
@@ -26,9 +23,9 @@ class CacheSpec extends ObjectBehavior
         $this->shouldImplement('Indigo\Http\Adapter');
     }
 
-    function it_should_cache_a_response(Request $request, Response $response)
+    function it_should_cache_a_response(Adapter $adapter, Request $request, Response $response)
     {
-        $this->adapter->send($request)->willReturn($response);
+        $adapter->send($request)->willReturn($response);
 
         $request->getUrl()->willReturn('http://foo.com');
         $response->getHeader('ETag')->willReturn('etag');
@@ -39,9 +36,9 @@ class CacheSpec extends ObjectBehavior
         $this->getItem(md5('http://foo.com'))->isMiss()->shouldReturn(false);
     }
 
-    function it_should_return_a_cached_response(Request $request, Response $response, Response $cached)
+    function it_should_return_a_cached_response(Adapter $adapter, Request $request, Response $response, Response $cached)
     {
-        $this->adapter->send($request)->willReturn($response);
+        $adapter->send($request)->willReturn($response);
 
         $cached->getStatusCode()->willReturn(200);
         $cached->getHeader('ETag')->willReturn('etag');

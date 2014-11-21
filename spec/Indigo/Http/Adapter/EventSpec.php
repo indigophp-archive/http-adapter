@@ -10,11 +10,8 @@ use PhpSpec\ObjectBehavior;
 
 class EventSpec extends ObjectBehavior
 {
-    protected $adapter;
-
     function let(Adapter $adapter)
     {
-        $this->adapter = $adapter;
         $this->beConstructedWith($adapter);
     }
 
@@ -25,9 +22,9 @@ class EventSpec extends ObjectBehavior
         $this->shouldImplement('Indigo\Http\Adapter');
     }
 
-    function it_should_expose_events(Request $request, Response $response)
+    function it_should_expose_events(Adapter $adapter, Request $request, Response $response)
     {
-        $this->adapter->send($request)->willReturn($response);
+        $adapter->send($request)->willReturn($response);
         $this->send($request);
     }
 

@@ -89,7 +89,7 @@ class Buzz implements Adapter
     private function transformResponse($response)
     {
         if ($body = $response->getContent()) {
-            $body = $this->createStream($body);
+            $body = Stream::create($body);
         } else {
             $body = null;
         }
@@ -103,26 +103,5 @@ class Buzz implements Adapter
         );
 
         return $transformed;
-    }
-
-    /**
-     * Creates a new Stream from string
-     *
-     * @param string $body
-     *
-     * @return Stream
-     */
-    public function createStream($body)
-    {
-        $resource = fopen('php://temp', 'r+');
-
-        if (!empty($body)) {
-            fwrite($resource, $body);
-            fseek($resource, 0);
-        }
-
-        $stream = new Stream($resource);
-
-        return $stream;
     }
 }

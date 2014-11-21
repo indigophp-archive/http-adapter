@@ -11,12 +11,9 @@ use PhpSpec\ObjectBehavior;
 
 class BuzzSpec extends ObjectBehavior
 {
-    protected $browser;
-
     function let(Browser $browser)
     {
         $this->beConstructedWith($browser);
-        $this->browser = $browser;
     }
 
     function it_is_initializable()
@@ -25,7 +22,7 @@ class BuzzSpec extends ObjectBehavior
         $this->shouldImplement('Indigo\Http\Adapter');
     }
 
-    function it_should_return_a_response(Request $request, BuzzRequest $buzzRequest, BuzzResponse $buzzResponse, Factory $factory)
+    function it_should_return_a_response(Browser $browser, Request $request, BuzzRequest $buzzRequest, BuzzResponse $buzzResponse, Factory $factory)
     {
         $request->getMethod()->willReturn('GET');
         $request->getUrl()->willReturn('http://foo.com');
@@ -38,13 +35,13 @@ class BuzzSpec extends ObjectBehavior
         $buzzResponse->getHeaders()->willReturn([]);
         $buzzResponse->getContent()->willReturn(null);
 
-        $this->browser->getMessageFactory()->willReturn($factory);
+        $browser->getMessageFactory()->willReturn($factory);
         $factory->createRequest('GET', 'http://foo.com')->willReturn($buzzRequest);
-        $this->browser->send($buzzRequest)->willReturn($buzzResponse);
+        $browser->send($buzzRequest)->willReturn($buzzResponse);
 
         $response = $this->send($request);
 
-        $response->getStatusCode()->shouldBe(200);
-        $response->getProtocolVersion()->shouldBe('1.1');
+        $response->getStatusCode()->shouldReturn(200);
+        $response->getProtocolVersion()->shouldReturn('1.1');
     }
 }
