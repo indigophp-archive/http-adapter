@@ -23,7 +23,7 @@ This package also provides a simple implementation of the latest PSR interfaces.
 Via Composer
 
 ``` bash
-composer require indigophp/http-adapter
+$ composer require indigophp/http-adapter
 ```
 
 
