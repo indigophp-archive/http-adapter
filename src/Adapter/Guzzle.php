@@ -22,6 +22,10 @@ use GuzzleHttp\Exception\RequestException as GuzzleRequestException;
 /**
  * Guzzle Adapter
  *
+ * This adapter is for always the latest version of guzzle
+ *
+ * Legacy adapters should be added if interface changes
+ *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
 class Guzzle implements Adapter
