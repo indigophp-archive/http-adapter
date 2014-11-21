@@ -57,12 +57,12 @@ class StreamSpec extends ObjectBehavior
     }
 
     // this is currently not wotking
-    function it_should_throw_an_exception_when_the_stream_is_not_resource()
-    {
-        // $exception = new InvalidArgumentException('Stream must be a resource');
+    // function it_should_throw_an_exception_when_the_stream_is_not_resource()
+    // {
+    //     $exception = new InvalidArgumentException('Stream must be a resource');
 
-        // $this->shouldThrow($exception)->during('__construct', [null]);
-    }
+    //     $this->shouldThrow($exception)->during('__construct', [null]);
+    // }
 
     function it_should_not_have_a_size()
     {
