@@ -45,6 +45,7 @@ class Guzzle3 implements Adapter
     public function send(Request $request)
     {
         $guzzleRequest = $this->transformRequest($request);
+        $response = null;
 
         try {
             $response = $this->transformResponse($this->client->send($guzzleRequest));

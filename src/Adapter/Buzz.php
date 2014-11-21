@@ -45,6 +45,7 @@ class Buzz implements Adapter
     public function send(Request $request)
     {
         $buzzRequest = $this->transformRequest($request);
+        $response = null;
 
         try {
             $response = $this->transformResponse($this->browser->send($buzzRequest));
