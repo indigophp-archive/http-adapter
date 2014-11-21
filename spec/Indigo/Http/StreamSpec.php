@@ -2,6 +2,7 @@
 
 namespace spec\Indigo\Http;
 
+use Psr\Http\Message\StreamableInterface;
 use PhpSpec\ObjectBehavior;
 use InvalidArgumentException;
 
@@ -87,5 +88,34 @@ class StreamSpec extends ObjectBehavior
     {
         $this->read(1)->shouldReturn('T');
         $this->getContents()->shouldReturn('est content');
+    }
+
+    function it_should_be_able_to_be_created()
+    {
+        $stream = $this->create('string');
+
+        $stream->shouldHaveType('Indigo\Http\Stream');
+        $stream->shouldImplement('Psr\Http\Message\StreamableInterface');
+    }
+
+    function it_should_be_able_to_be_created_from_resource()
+    {
+        $resource = fopen('php://temp', 'r+');
+        $stream = $this->create($resource);
+
+        $stream->shouldHaveType('Indigo\Http\Stream');
+        $stream->shouldImplement('Psr\Http\Message\StreamableInterface');
+    }
+
+    function it_should_be_able_to_be_created_from_stream_object(StreamableInterface $object)
+    {
+        $stream = $this->create($object);
+
+        $stream->shouldBe($object);
+    }
+
+    function it_should_throw_an_exception_when_being_created_with_an_invalid_resource()
+    {
+        $this->shouldThrow('InvalidArgumentException')->during('create', [null]);
     }
 }

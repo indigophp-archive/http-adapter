@@ -79,6 +79,41 @@ class Stream implements StreamableInterface
     }
 
     /**
+     * Creates a new stream
+     *
+     * From Guzzle
+     *
+     * @param mixed $resource
+     *
+     * @return self
+     */
+    public static function create($resource)
+    {
+        $type = gettype($resource);
+
+        if ($type == 'string') {
+            $stream = fopen('php://temp', 'r+');
+
+            if ($resource !== '') {
+                fwrite($stream, $resource);
+                fseek($stream, 0);
+            }
+
+            return new self($stream);
+        }
+
+        if ($type == 'resource') {
+            return new self($resource);
+        }
+
+        if ($resource instanceof StreamableInterface) {
+            return $resource;
+        }
+
+        throw new \InvalidArgumentException('Invalid resource type: ' . $type);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __toString()
