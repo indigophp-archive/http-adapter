@@ -37,12 +37,12 @@ class Cache implements Adapter, PoolInterface
         $hash = md5($request->getUrl());
 
         $item = $this->getItem($hash);
-        $cached = $item->get();
+        $cachedResponse = $item->get();
 
         // Do we have a cache?
         if (!$item->isMiss()) {
             $this->setModifiedSince($request, $item);
-            $this->setEtag($request, $cached);
+            $this->setEtag($request, $cachedResponse);
         }
 
         $response = $this->adapter->send($request);
@@ -50,10 +50,10 @@ class Cache implements Adapter, PoolInterface
         // Is the content modified?
         if ($response->getStatusCode() !== 304) {
             $item->set($response);
-            $cached = $response;
+            $cachedResponse = $response;
         }
 
-        return $cached;
+        return $cachedResponse;
     }
 
     /**
@@ -77,11 +77,11 @@ class Cache implements Adapter, PoolInterface
      * Sets ETag if available in the cached response
      *
      * @param Request  $request
-     * @param Response $cached
+     * @param Response $cachedResponse
      */
-    private function setEtag(Request $request, Response $cached)
+    private function setEtag(Request $request, Response $cachedResponse)
     {
-        if ($etag = $cached->getHeader('ETag')) {
+        if ($etag = $cachedResponse->getHeader('ETag')) {
             $request->addHeader('If-None-Match', $etag);
         }
     }
