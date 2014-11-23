@@ -28,7 +28,7 @@ interface Adapter
      *
      * @return Response
      *
-     * @throws RequestException If any RequestException is thrown by the adapter
+     * @throws RequestException If any exception is thrown by the underlying client
      */
     public function send(Request $request);
 }
