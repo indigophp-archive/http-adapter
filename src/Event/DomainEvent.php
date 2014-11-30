@@ -18,7 +18,7 @@ use League\Event\AbstractEvent;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-abstract class Event extends AbstractEvent
+abstract class DomainEvent extends AbstractEvent
 {
     /**
      * {@inheritdoc}

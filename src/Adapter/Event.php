@@ -30,11 +30,15 @@ class Event implements Adapter
      */
     public function send(Request $request)
     {
-        $this->emit(new Events\Before($this->adapter, $request));
+        $this->emit(new Events\RequestStarted($this->adapter, $request));
 
-        $response = $this->adapter->send($request);
+        try {
+            $response = $this->adapter->send($request);
+        } catch (RequestException $e) {
+            $this->emit(new Events\RequestErrored($this->adapter, $request));
+        }
 
-        $this->emit(new Events\Complete($this->adapter, $request, $response));
+        $this->emit(new Events\RequestCompleted($this->adapter, $request, $response));
 
         return $response;
     }

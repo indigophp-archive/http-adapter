@@ -16,13 +16,13 @@ use Psr\Http\Message\OutgoingRequestInterface as Request;
 use Psr\Http\Message\IncomingResponseInterface as Response;
 
 /**
- * Complete HTTP request event
+ * HTTP Request Errored event
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Complete extends Event
+class Error extends DomainEvent
 {
-    const NAME = 'complete';
+    const NAME = 'requestErrored';
 
     /**
      * @var Adapter
@@ -38,6 +38,13 @@ class Complete extends Event
      * @var Response
      */
     private $response;
+
+    /**
+     * Checks whether the error is handled
+     *
+     * @var boolean
+     */
+    private $handled;
 
     /**
      * @param Adapter  $adapter
@@ -79,5 +86,25 @@ class Complete extends Event
     public function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * Sets the handled status
+     *
+     * @param boolean $handled
+     */
+    public function handle($handled = true)
+    {
+        $this->handled = (bool) $handled;
+    }
+
+    /**
+     * Checks whether the error is handled
+     *
+     * @return boolean
+     */
+    public function isHandled()
+    {
+        return $this->handled;
     }
 }
