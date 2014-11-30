@@ -14,6 +14,7 @@ namespace Indigo\Http\Adapter;
 use Indigo\Http\Adapter;
 use Indigo\Http\Event as Events;
 use Psr\Http\Message\OutgoingRequestInterface as Request;
+use Exception;
 
 /**
  * Event Adapter decorator
@@ -34,8 +35,14 @@ class Event implements Adapter
 
         try {
             $response = $this->adapter->send($request);
-        } catch (RequestException $e) {
-            $this->emit(new Events\RequestErrored($this->adapter, $request));
+        } catch (Exception $e) {
+            $this->emit($event = new Events\RequestFailed($this->adapter, $request, $e));
+
+            if (!$event->isIntercepted()) {
+                throw $event->getException();
+            }
+
+            $response = $event->getResponse();
         }
 
         $this->emit(new Events\RequestCompleted($this->adapter, $request, $response));

@@ -17,13 +17,11 @@ class RequestCompletedSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Indigo\Http\Event\RequestCompleted');
-        $this->shouldHaveType('Indigo\Http\Event\DomainEvent');
+        $this->shouldHaveType('Indigo\Http\Event\RequestEvent');
     }
 
-    function it_should_expose_adapter_and_request(Adapter $adapter, Request $request, Response $response)
+    function it_should_have_a_response(Response $response)
     {
-        $this->getAdapter()->shouldReturn($adapter);
-        $this->getRequest()->shouldReturn($request);
         $this->getResponse()->shouldReturn($response);
     }
 }

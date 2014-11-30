@@ -20,19 +20,9 @@ use Psr\Http\Message\IncomingResponseInterface as Response;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class RequestCompleted extends DomainEvent
+class RequestCompleted extends RequestEvent
 {
     const NAME = 'requestCompleted';
-
-    /**
-     * @var Adapter
-     */
-    private $adapter;
-
-    /**
-     * @var Request
-     */
-    private $request;
 
     /**
      * @var Response
@@ -46,29 +36,9 @@ class RequestCompleted extends DomainEvent
      */
     public function __construct(Adapter $adapter, Request $request, Response $response)
     {
-        $this->adapter = $adapter;
-        $this->request = $request;
         $this->response = $response;
-    }
 
-    /**
-     * Returns the Adapter
-     *
-     * @return Adapter
-     */
-    public function getAdapter()
-    {
-        return $this->adapter;
-    }
-
-    /**
-     * Returns the Request
-     *
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->request;
+        parent::__construct($adapter, $request);
     }
 
     /**
