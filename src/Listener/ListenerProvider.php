@@ -31,8 +31,8 @@ trait ListenerProvider
 
         foreach ($events as $event => $listener) {
             // Listener name can be the same as the event name
-            if (is_null($listener)) {
-                $listener = $event;
+            if (is_int($event)) {
+                $event = $listener;
             }
 
             $listenerAcceptor->addListener($event, [$this, $listener]);

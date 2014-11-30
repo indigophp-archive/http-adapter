@@ -12,8 +12,7 @@
 namespace Indigo\Http\Listener;
 
 use Indigo\Http\Event\RequestStarted;
-use LogicException;
-use RuntimeException;
+use League\Url\Url;
 
 /**
  * Provides API Key authentication Listeners for a Request
@@ -55,10 +54,11 @@ class ApiKey extends Base
     {
         $request = $event->getRequest();
 
-        $url = $request->getUrl();
+        $url = Url::createFromUrl($request->getUrl());
+        $query = $url->getQuery();
 
-        // add $parameter and $key to the url
+        $query[$this->parameter] = $this->key;
 
-        $request->setUrl($url);
+        $request->setUrl((string) $url);
     }
 }

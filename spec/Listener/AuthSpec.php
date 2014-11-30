@@ -17,7 +17,7 @@ class AuthSpec extends ObjectBehavior
     {
         $this->shouldHaveType('Indigo\Http\Listener\Auth');
         $this->shouldHaveType('Indigo\Http\Listener\Base');
-        $this->shouldHaveType('League\Event\ListenerProviderInterface');
+        $this->shouldImplement('League\Event\ListenerProviderInterface');
     }
 
     function it_should_listen_to_request_started_event(RequestStarted $event, Request $request)
