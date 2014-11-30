@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Http\ListenerProvider;
+namespace Indigo\Http\Listener;
 
 use League\Event\ListenerAcceptorInterface;
 

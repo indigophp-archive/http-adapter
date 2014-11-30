@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Http\ListenerProvider;
+namespace Indigo\Http\Listener;
 
 use League\Event\ListenerProviderInterface;
 use League\Event\ListenerAcceptorInterface;
 
 /**
- * Simple implementation of ListenerProviders
+ * Simple implementation of Listener
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
