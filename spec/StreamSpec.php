@@ -90,7 +90,7 @@ class StreamSpec extends ObjectBehavior
         $this->getContents()->shouldReturn('est content');
     }
 
-    function it_should_be_able_to_be_created()
+    function it_should_allow_to_be_created()
     {
         $stream = $this->create('string');
 
@@ -98,7 +98,7 @@ class StreamSpec extends ObjectBehavior
         $stream->shouldImplement('Psr\Http\Message\StreamableInterface');
     }
 
-    function it_should_be_able_to_be_created_from_resource()
+    function it_should_allow_to_be_created_from_resource()
     {
         $resource = fopen('php://temp', 'r+');
         $stream = $this->create($resource);
@@ -107,7 +107,7 @@ class StreamSpec extends ObjectBehavior
         $stream->shouldImplement('Psr\Http\Message\StreamableInterface');
     }
 
-    function it_should_be_able_to_be_created_from_stream_object(StreamableInterface $object)
+    function it_should_allow_to_be_created_from_stream_object(StreamableInterface $object)
     {
         $stream = $this->create($object);
 

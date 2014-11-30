@@ -24,12 +24,12 @@ class ClientSpec extends ObjectBehavior
         $this->shouldHaveType('Indigo\Http\Client');
     }
 
-    function it_should_be_able_to_send_request(Request $request)
+    function it_should_allow_to_send_a_request(Request $request)
     {
         $this->send($request)->shouldReturn('content');
     }
 
-    function it_should_be_able_to_create_request()
+    function it_should_allow_to_create_a_request()
     {
         $request = $this->createRequest('GET', 'http://google.hu', [
             'protocol_version' => '1.0',
@@ -46,7 +46,7 @@ class ClientSpec extends ObjectBehavior
         $request->getHeader('X-Test')->shouldReturn('1');
     }
 
-    function it_should_be_able_to_send_get_request(Adapter $adapter, Response $response)
+    function it_should_alloq_to_send_get_request(Adapter $adapter, Response $response)
     {
         $request = $this->createRequest('GET', null, []);
         $adapter->send($request)->willReturn($response);
@@ -54,7 +54,7 @@ class ClientSpec extends ObjectBehavior
         $this->get()->shouldReturn('content');
     }
 
-    function it_should_be_able_to_send_post_request(Adapter $adapter, Response $response)
+    function it_should_allow_to_send_post_request(Adapter $adapter, Response $response)
     {
         $request = $this->createRequest('POST', null, []);
         $adapter->send($request)->willReturn($response);
@@ -62,7 +62,7 @@ class ClientSpec extends ObjectBehavior
         $this->post()->shouldReturn('content');
     }
 
-    function it_should_be_able_to_send_put_request(Adapter $adapter, Response $response)
+    function it_should_allow_to_send_put_request(Adapter $adapter, Response $response)
     {
         $request = $this->createRequest('PUT', null, []);
         $adapter->send($request)->willReturn($response);
@@ -70,7 +70,7 @@ class ClientSpec extends ObjectBehavior
         $this->put()->shouldReturn('content');
     }
 
-    function it_should_be_able_to_send_head_request(Adapter $adapter, Response $response)
+    function it_should_allow_to_send_head_request(Adapter $adapter, Response $response)
     {
         $request = $this->createRequest('HEAD', null, []);
         $adapter->send($request)->willReturn($response);
@@ -78,7 +78,7 @@ class ClientSpec extends ObjectBehavior
         $this->head()->shouldReturn('content');
     }
 
-    function it_should_be_able_to_send_delete_request(Adapter $adapter, Response $response)
+    function it_should_allow_to_send_delete_request(Adapter $adapter, Response $response)
     {
         $request = $this->createRequest('DELETE', null, []);
         $adapter->send($request)->willReturn($response);
@@ -86,7 +86,7 @@ class ClientSpec extends ObjectBehavior
         $this->delete()->shouldReturn('content');
     }
 
-    function it_should_be_able_to_send_patch_request(Adapter $adapter, Response $response)
+    function it_should_allow_to_send_patch_request(Adapter $adapter, Response $response)
     {
         $request = $this->createRequest('PATCH', null, []);
         $adapter->send($request)->willReturn($response);
@@ -94,7 +94,7 @@ class ClientSpec extends ObjectBehavior
         $this->patch()->shouldReturn('content');
     }
 
-    function it_should_be_able_to_send_options_request(Adapter $adapter, Response $response)
+    function it_should_allow_to_send_options_request(Adapter $adapter, Response $response)
     {
         $request = $this->createRequest('OPTIONS', null, []);
         $adapter->send($request)->willReturn($response);

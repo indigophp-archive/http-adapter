@@ -19,7 +19,7 @@ class MockSpec extends ObjectBehavior
         $this->beConstructedWith($response);
     }
 
-    function it_should_allow_to_set_response(Response $response)
+    function it_should_allow_to_set_a_response(Response $response)
     {
         $this->setResponse($response);
     }

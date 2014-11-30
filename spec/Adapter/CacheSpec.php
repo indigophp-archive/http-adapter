@@ -23,7 +23,7 @@ class CacheSpec extends ObjectBehavior
         $this->shouldImplement('Indigo\Http\Adapter');
     }
 
-    function it_should_cache_a_response(Adapter $adapter, Request $request, Response $response)
+    function it_should_allow_to_cache_a_response(Adapter $adapter, Request $request, Response $response)
     {
         $adapter->send($request)->willReturn($response);
 
