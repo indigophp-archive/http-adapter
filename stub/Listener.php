@@ -9,22 +9,30 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Http\Event;
+namespace Indigo\Http\Stub;
 
-use League\Event\AbstractEvent;
+use Indigo\Http\Listener\Base;
+use Indigo\Http\Event\RequestStarted;
 
 /**
- * Returns name from a constant
+ * Listener Stub
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-abstract class Event extends AbstractEvent
+class Listener extends Base
 {
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    protected $events = ['requestStarted'];
+
+    /**
+     * Listens to RequestStarted event
+     *
+     * @param RequestStarted $event
+     */
+    public function requestStarted(RequestStarted $event)
     {
-        return static::NAME;
+        // noop
     }
 }

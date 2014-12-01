@@ -9,20 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Http\ListenerProvider;
+namespace Indigo\Http\Listener;
 
 use League\Event\ListenerProviderInterface;
 use League\Event\ListenerAcceptorInterface;
 
 /**
- * Array implementation of ListenerProviders
+ * Simple implementation of Listener
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-abstract class ListenerProvider implements ListenerProviderInterface
+abstract class Base implements ListenerProviderInterface
 {
+    use ListenerProvider;
+
     /**
-     * List of events
+     * List of provided events
      *
      * @var array
      */
@@ -30,20 +32,6 @@ abstract class ListenerProvider implements ListenerProviderInterface
 
     /**
      * {@inheritdoc}
-     */
-    public function provideListeners(ListenerAcceptorInterface $listenerAcceptor)
-    {
-        $events = $this->getEvents();
-
-        foreach ($events as $event) {
-            $listenerAcceptor->addListener($event, [$this, $event]);
-        }
-    }
-
-    /**
-     * Returns the provided events
-     *
-     * @return array
      */
     public function getEvents()
     {

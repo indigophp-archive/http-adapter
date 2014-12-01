@@ -13,42 +13,32 @@ namespace Indigo\Http\Event;
 
 use Indigo\Http\Adapter;
 use Psr\Http\Message\OutgoingRequestInterface as Request;
-use Psr\Http\Message\IncomingResponseInterface as Response;
 
 /**
- * Complete HTTP request event
+ * Request event base
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Complete extends Event
+abstract class RequestEvent extends DomainEvent
 {
-    const NAME = 'complete';
-
     /**
      * @var Adapter
      */
-    private $adapter;
+    protected $adapter;
 
     /**
      * @var Request
      */
-    private $request;
+    protected $request;
 
     /**
-     * @var Response
+     * @param Adapter $adapter
+     * @param Request $request
      */
-    private $response;
-
-    /**
-     * @param Adapter  $adapter
-     * @param Request  $request
-     * @param Response $response
-     */
-    public function __construct(Adapter $adapter, Request $request, Response $response)
+    public function __construct(Adapter $adapter, Request $request)
     {
         $this->adapter = $adapter;
         $this->request = $request;
-        $this->response = $response;
     }
 
     /**
@@ -69,15 +59,5 @@ class Complete extends Event
     public function getRequest()
     {
         return $this->request;
-    }
-
-    /**
-     * Returns the Response
-     *
-     * @return Response
-     */
-    public function getResponse()
-    {
-        return $this->response;
     }
 }

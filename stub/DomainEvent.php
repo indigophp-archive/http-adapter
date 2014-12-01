@@ -11,14 +11,14 @@
 
 namespace Indigo\Http\Stub;
 
-use Indigo\Http\Event\Event as AbstractEvent;
+use Indigo\Http\Event\DomainEvent as AbstractEvent;
 
 /**
- * Event Stub
+ * Domain Event Stub
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Event extends AbstractEvent
+class DomainEvent extends AbstractEvent
 {
     const NAME = 'eventStub';
 }

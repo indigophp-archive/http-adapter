@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Indigo\Http\ListenerProvider;
+namespace Indigo\Http\Listener;
 
-use Indigo\Http\Event\Before;
+use Indigo\Http\Event\RequestStarted;
 use LogicException;
 use RuntimeException;
 
 /**
- * Provides authentication listeners for a request
+ * Provides authentication Listeners for a Request
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class Auth extends ListenerProvider
+class Auth extends Base
 {
     /**
      * Authentication type constants
@@ -31,7 +31,7 @@ class Auth extends ListenerProvider
     /**
      * {@inheritdoc}
      */
-    protected $events = ['before'];
+    protected $events = ['requestStarted'];
 
     /**
      * @var string
@@ -51,6 +51,8 @@ class Auth extends ListenerProvider
     private $type;
 
     /**
+     * @param string  $username
+     * @param string  $password
      * @param integer $type
      */
     public function __construct($username, $password, $type = self::BASIC)
@@ -61,11 +63,11 @@ class Auth extends ListenerProvider
     }
 
     /**
-     * Before event listener
+     * Adds Authentication details to the Request
      *
-     * @param Before $event
+     * @param RequestStarted $event
      */
-    public function before(Before $event)
+    public function requestStarted(RequestStarted $event)
     {
         $request = $event->getRequest();
 

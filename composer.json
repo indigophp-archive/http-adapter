@@ -22,6 +22,7 @@
     },
     "require-dev": {
         "league/event": "dev-master",
+        "league/url": "dev-master",
         "tedivm/stash": "dev-feature/pool-trait",
         "kriswallsmith/buzz": "v0.13",
         "guzzle/guzzle": "~3.9.0",

@@ -7,7 +7,7 @@ use Psr\Http\Message\OutgoingRequestInterface as Request;
 use Psr\Http\Message\IncomingResponseInterface as Response;
 use PhpSpec\ObjectBehavior;
 
-class CompleteSpec extends ObjectBehavior
+class RequestCompletedSpec extends ObjectBehavior
 {
     public function let(Adapter $adapter, Request $request, Response $response)
     {
@@ -16,14 +16,12 @@ class CompleteSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Indigo\Http\Event\Complete');
-        $this->shouldHaveType('Indigo\Http\Event\Event');
+        $this->shouldHaveType('Indigo\Http\Event\RequestCompleted');
+        $this->shouldHaveType('Indigo\Http\Event\RequestEvent');
     }
 
-    function it_should_expose_adapter_and_request(Adapter $adapter, Request $request, Response $response)
+    function it_should_have_a_response(Response $response)
     {
-        $this->getAdapter()->shouldReturn($adapter);
-        $this->getRequest()->shouldReturn($request);
         $this->getResponse()->shouldReturn($response);
     }
 }
