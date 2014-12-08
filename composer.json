@@ -22,13 +22,16 @@
     },
     "require-dev": {
         "league/event": "dev-master",
-        "league/url": "dev-master",
+        "league/url": "~3.3.0",
         "tedivm/stash": "dev-feature/pool-trait",
         "kriswallsmith/buzz": "v0.13",
         "guzzle/guzzle": "~3.9.0",
         "guzzlehttp/guzzle": "~5.0.0",
         "phpspec/phpspec": "2.1.*@dev,>=2.1.0-RC2",
         "henrikbjorn/phpspec-code-coverage" : "1.0.*@dev"
+    },
+    "suggest": {
+        "league/url": "Used for base URL handling in Client"
     },
     "autoload": {
         "psr-4": {

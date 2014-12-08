@@ -12,6 +12,8 @@
 namespace Indigo\Http;
 
 use Psr\Http\Message\OutgoingRequestInterface as Request;
+use League\Url\UrlImmutable;
+use League\Url\Url;
 
 /**
  * Implementation of generic HTTP Client
@@ -28,11 +30,37 @@ class Client
     protected $adapter;
 
     /**
+     * @var UrlImmutable
+     */
+    protected $baseUrl;
+
+    /**
      * @param Adapter $adapter
      */
-    public function __construct(Adapter $adapter)
+    public function __construct(Adapter $adapter, $baseUrl = null)
     {
         $this->adapter = $adapter;
+        $this->setBaseUrl($baseUrl);
+    }
+
+    /**
+     * Returns the base URL
+     *
+     * @return UrlImmutable
+     */
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
+    }
+
+    /**
+     * Sets the base URL
+     *
+     * @param string|Url|UrlImmutable $baseUrl
+     */
+    public function setBaseUrl($baseUrl)
+    {
+        $this->baseUrl = UrlImmutable::createFromUrl($baseUrl);
     }
 
     /**
@@ -60,15 +88,16 @@ class Client
      */
     public function createRequest($method, $url = null, array $options = [])
     {
-        $request = new Message\Request;
         $protocol_version = '1.1';
         $body = null;
         $headers = [];
 
         extract($options);
 
+        $request = new Message\Request;
+
         $request->setMethod($method);
-        $request->setUrl($url);
+        $request->setUrl($url ? (string) $this->createUrl($url) : (string) $this->baseUrl);
         $request->setProtocolVersion($protocol_version);
 
         if (isset($body)) {
@@ -81,6 +110,31 @@ class Client
         }
 
         return $request;
+    }
+
+    /**
+     * Creates a URL using the base URL
+     *
+     * @param string|null|Url $url
+     *
+     * @return Url
+     */
+    protected function createUrl($url)
+    {
+        // is absolute URL?
+        if (strpos($url, '://')) {
+            return Url::createFromUrl($url);
+        }
+
+        // only query and path matters in relative url
+        $url = Url::createFromUrl($url);
+        $query = $this->baseUrl->getQuery();
+        $path = $this->baseUrl->getPath();
+
+        $query->modify($url->getQuery());
+        $path->append($url->getPath());
+
+        return $this->baseUrl->setQuery($query)->setPath($path);
     }
 
     /**
